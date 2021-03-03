@@ -1,0 +1,37 @@
+<html>
+
+  <head>
+      <title>Suggestions</title>
+  </head>
+
+  <body>
+
+    Couleurs disponibles: {% for list_color in list_colors %}
+                        {{ list_color }},
+                        {% endfor %}</br>
+
+    </br>entrée: <input type="text" id="dataEnter"></input>
+
+    <div id="outputData"></div>
+
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+
+    <script>
+      $("#dataEnter").keyup(function(){
+          var text = $(this).val();
+
+          $.ajax({
+            url: "/output",
+            type: "get",
+            data: {outData: text},
+            success: function(response) {
+              $("#outputData").html(response);
+            },
+            error: function(err) {
+              console.log(err)
+            }
+          });
+      });
+    </script>
+  </body>
+</html>
